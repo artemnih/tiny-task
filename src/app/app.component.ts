@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 interface Task {
     text: string;
@@ -42,6 +43,11 @@ export class AppComponent {
 
     deleteTask(i: number) {
         this.tasks.splice(i, 1);
+    }
+
+    drop(e: CdkDragDrop<Task[]>) {
+        moveItemInArray(this.tasks, e.previousIndex, e.currentIndex);
+        this.save();
     }
 
 }
