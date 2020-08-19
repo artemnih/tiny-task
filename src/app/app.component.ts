@@ -43,6 +43,7 @@ export class AppComponent {
 
     deleteTask(i: number) {
         this.tasks.splice(i, 1);
+        this.save();
     }
 
     drop(e: CdkDragDrop<Task[]>) {
