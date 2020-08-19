@@ -16,13 +16,12 @@
 
 <div class="row my-3">
     <div class="col-lg-3">
-        <ul class="list-group">
-            <li class="list-group-item text-large" *ngFor="let task of tasks; let i = index;">
+        <ul class="list-group" cdkDropList (cdkDropListDropped)="drop($event)">
+            <li class="list-group-item text-large" *ngFor="let task of tasks; let i = index;" cdkDrag>
                 <input type="checkbox" class="checkbox-big mr-2" [(ngModel)]="task.done" (change)="save()">
                 <span class="task-text">{{task.text}}</span>
                 <button class="btn btn-danger float-right" (click)="deleteTask(i)">Delete</button>
             </li>
-
         </ul>
     </div>
 </div>
