@@ -14,6 +14,7 @@ interface Task {
 export class AppComponent {
     public tasks: Task[] = [];
     public newTaskText = '';
+    public editIndex = -1;
 
     constructor() {
         this.tasks = JSON.parse(localStorage.getItem('tasks') || '[]');
@@ -42,13 +43,23 @@ export class AppComponent {
     }
 
     deleteTask(i: number) {
-        this.tasks.splice(i, 1);
-        this.save();
+        if (window.confirm('Are you sure?')) {
+            this.tasks.splice(i, 1);
+            this.save();
+        }
     }
 
     drop(e: CdkDragDrop<Task[]>) {
         moveItemInArray(this.tasks, e.previousIndex, e.currentIndex);
         this.save();
+    }
+
+    enableEditing(i) {
+        this.editIndex = i;
+    }
+
+    update() {
+        this.editIndex = -1;
     }
 
 }
