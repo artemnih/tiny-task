@@ -1,34 +1,43 @@
 <div class="row mt-3">
-    <div class="col-md-6">
+    <div class="col-xl-4 col-lg-6">
         <span class="h2">Task List</span>
     </div>
 </div>
 
 <div class="row mt-3">
-    <div class="col-md-6 mb-3">
+    <div class="col-xl-4 col-lg-6 mb-3">
         <input class="form-control" [(ngModel)]="newTaskText" (keyup.enter)="add()" type="text" required>
     </div>
-    <div class="col-md-3 mb-3">
-        <button class="btn btn-primary btn-wide col-md-6" (click)="add()" [disabled]="!newTaskText.length">Add</button>
+    <div class="col-xl-4 col-lg-6 mb-3">
+        <button class="btn btn-primary btn-wide col-xl-4 col-lg-6" (click)="add()"
+            [disabled]="!newTaskText.length">Add</button>
     </div>
 </div>
 
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-xl-4 col-lg-6">
         <ul class="list-group" cdkDropList (cdkDropListDropped)="drop($event)">
             <li class="list-group-item text-large" *ngFor="let task of tasks; let i = index;" cdkDrag>
                 <span [hidden]="editIndex === i">
                     <input type="checkbox" class="checkbox-big mr-2" [(ngModel)]="task.done" (change)="save()">
                     <span class="task-text">{{task.text}}</span>
                     <button [hidden]="editIndex > -1 && editIndex !== i"
-                        class="btn btn-danger btn-small float-right ml-3" (click)="deleteTask(i)">X</button>
-                    <button [hidden]="editIndex > -1 && editIndex !== i" class="btn btn-warning btn-small float-right"
-                        (click)="enableEditing(i)">...</button>
+                        class="btn btn-outline-danger btn-small float-right ml-3" (click)="deleteTask(i)">
+                        <i class="fa fa-trash" aria-hidden="true"></i>
+                    </button>
+                    <button [hidden]="editIndex > -1 && editIndex !== i" class="btn btn-outline-warning btn-small float-right"
+                        (click)="enableEditing(i)">
+                        <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
+                    </button>
                 </span>
-                <span [hidden]="editIndex !== i">  
-                    <input type="text" #nodeInput class="form-control floating-input" [(ngModel)]="editorValue">
-                    <button class="btn btn-danger btn-small btn-small float-right ml-3" (click)="update(i)">U</button>
-                    <button class="btn btn-warning btn-small btn-small float-right" (click)="cancel()">C</button>
+                <span [hidden]="editIndex !== i">
+                    <input type="text" #nodeInput class="form-control floating-input" [(ngModel)]="editorValue" (keyup.enter)="update(i)">
+                    <button class="btn btn-outline-secondary btn-small float-right ml-3" (click)="cancel()">
+                        <i class="fa fa-ban" aria-hidden="true"></i>
+                    </button>
+                    <button class="btn btn-outline-success btn-small float-right" (click)="update(i)">
+                        <i class="fa fa-floppy-o" aria-hidden="true"></i>
+                    </button>
                 </span>
             </li>
         </ul>
