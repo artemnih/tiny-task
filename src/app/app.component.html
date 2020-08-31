@@ -1,36 +1,34 @@
 <div class="row mt-3">
-    <div class="col-lg-4">
+    <div class="col-md-6">
         <span class="h2">Task List</span>
     </div>
 </div>
 
 <div class="row mt-3">
-    <div class="col-lg-4 mb-3">
+    <div class="col-md-6 mb-3">
         <input class="form-control" [(ngModel)]="newTaskText" (keyup.enter)="add()" type="text" required>
     </div>
-    <div class="col-lg-4 mb-3">
-        <button class="btn btn-primary btn-wide col-lg-4" (click)="add()" [disabled]="!newTaskText.length">Add</button>
+    <div class="col-md-3 mb-3">
+        <button class="btn btn-primary btn-wide col-md-6" (click)="add()" [disabled]="!newTaskText.length">Add</button>
     </div>
 </div>
 
 <div class="row">
-    <div class="col-lg-4">
+    <div class="col-md-6">
         <ul class="list-group" cdkDropList (cdkDropListDropped)="drop($event)">
             <li class="list-group-item text-large" *ngFor="let task of tasks; let i = index;" cdkDrag>
                 <span [hidden]="editIndex === i">
                     <input type="checkbox" class="checkbox-big mr-2" [(ngModel)]="task.done" (change)="save()">
                     <span class="task-text">{{task.text}}</span>
-                    <button class="btn btn-danger float-right ml-3" (click)="deleteTask(i)">X</button>
-                    <button class="btn btn-warning float-right" (click)="enableEditing(i)">...</button>
+                    <button [hidden]="editIndex > -1 && editIndex !== i"
+                        class="btn btn-danger btn-small float-right ml-3" (click)="deleteTask(i)">X</button>
+                    <button [hidden]="editIndex > -1 && editIndex !== i" class="btn btn-warning btn-small float-right"
+                        (click)="enableEditing(i)">...</button>
                 </span>
-                <span [hidden]="editIndex !== i" class="row">
-                    <span class="col-9">
-                        <input type="text" class="form-control" [(ngModel)]="task.text" (change)="save()"
-                            (keyup.enter)="update()">
-                    </span>
-                    <span class="col-3">
-                        <button class="btn btn-primary col-12" (click)="update()">Ok</button>
-                    </span>
+                <span [hidden]="editIndex !== i">  
+                    <input type="text" #nodeInput class="form-control floating-input" [(ngModel)]="editorValue">
+                    <button class="btn btn-danger btn-small btn-small float-right ml-3" (click)="update(i)">U</button>
+                    <button class="btn btn-warning btn-small btn-small float-right" (click)="cancel()">C</button>
                 </span>
             </li>
         </ul>

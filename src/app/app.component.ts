@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChildren, QueryList, ElementRef } from '@angular/core';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 interface Task {
@@ -12,9 +12,12 @@ interface Task {
     styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+    @ViewChildren('nodeInput') nodeInputs: QueryList<ElementRef>;
+
     public tasks: Task[] = [];
     public newTaskText = '';
     public editIndex = -1;
+    public editorValue = '';
 
     constructor() {
         this.tasks = JSON.parse(localStorage.getItem('tasks') || '[]');
@@ -56,10 +59,22 @@ export class AppComponent {
 
     enableEditing(i) {
         this.editIndex = i;
+        this.editorValue = this.tasks[i].text;
+        const element = this.nodeInputs.toArray()[i];
+        setTimeout(() => {
+            element.nativeElement.focus();
+        }, 0);
     }
 
-    update() {
+    update(i) {
         this.editIndex = -1;
+        this.tasks[i].text = this.editorValue;
+        this.editorValue = '';
+    }
+
+    cancel() {
+        this.editIndex = -1;
+        this.editorValue = '';
     }
 
 }
