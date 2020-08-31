@@ -75,6 +75,7 @@ export class AppComponent {
         this.editIndex = -1;
         this.tasks[i].text = this.editorValue;
         this.editorValue = '';
+        this.save();
     }
 
     cancel() {
