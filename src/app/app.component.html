@@ -6,7 +6,7 @@
 
 <div class="row mt-3">
     <div class="col-xl-4 col-lg-6 mb-3">
-        <input class="form-control" [(ngModel)]="newTaskText" (keyup.enter)="add()" type="text" required>
+        <input class="form-control" [(ngModel)]="newTaskText" (keyup.enter)="add()"  (keyup.esc)="clear()" type="text" required>
     </div>
     <div class="col-xl-4 col-lg-6 mb-3">
         <button class="btn btn-primary btn-wide col-xl-4 col-lg-6" (click)="add()"
@@ -31,7 +31,7 @@
                     </button>
                 </span>
                 <span [hidden]="editIndex !== i">
-                    <input type="text" #nodeInput class="form-control floating-input" [(ngModel)]="editorValue" (keyup.enter)="update(i)">
+                    <input type="text" #nodeInput class="form-control floating-input" [(ngModel)]="editorValue" (keyup.enter)="update(i)" (keyup.esc)="cancel()">
                     <button class="btn btn-outline-secondary btn-small float-right ml-3" (click)="cancel()">
                         <i class="fa fa-ban" aria-hidden="true"></i>
                     </button>

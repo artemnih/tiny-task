@@ -31,6 +31,11 @@ export class AppComponent {
         this.save();
     }
 
+    clear() {
+        this.newTaskText = '';
+    }
+
+
     complete(id: number) {
         const task = this.tasks.splice(id, 1).pop();
     }
